@@ -4,7 +4,7 @@
             <Busqueda_Rapida></Busqueda_Rapida>
         </template>
 
-        <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation example"> 
             <ul class="inline-flex items-center -space-x-px">
                 <li>
                     <a href="#" v-on:click="getPreviousPage()"
