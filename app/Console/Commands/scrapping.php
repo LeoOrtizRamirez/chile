@@ -54,10 +54,8 @@ class scrapping extends Command
             'idEstado' => '-1',
             'codigoRegion' => '-1',
             'idTipoLicitacion' => '-1',
-            //'fecha_inicio' => $fecha_inicio,
-            //'fecha_fin' => $fecha_fin,
-            'fecha_inicio' => '2022-10-01',
-            'fecha_fin' => '2022-10-01',
+            'fechaInicio' => '2022-11-29',
+            'fechaFin' => '2022-11-29',
             'pagina' => 1,
         ]);
         $num_paginas = $crawler->filter(".margin-bottom-xs .n-result")->text();
@@ -72,8 +70,8 @@ class scrapping extends Command
                 'idEstado' => '-1',
                 'codigoRegion' => '-1',
                 'idTipoLicitacion' => '-1',
-                'fecha_inicio' => '2022-10-01',
-                'fecha_fin' => '2022-10-01',
+                'fechaInicio' => '2022-11-29',
+                'fechaFin' => '2022-11-29',
                 'pagina' => $pagina,
             ]);
             //Fin paginador 
@@ -82,66 +80,47 @@ class scrapping extends Command
             $dataEncabezado = array();
             $crawler->filter(".responsive-resultado")->each(function ($node) use (&$dataEncabezado) {
                 //Filtrar datos
+
                 //construccion id_licitacion
                 $dato_buscado = array('ID Licitación:', '');
                 $dato_remplazo = array('', '');
                 $id_licit  = $this->textValidation($node->filter(".lic-bloq-header .id-licitacion"));
                 $codigo_proceso = str_replace($dato_buscado, $dato_remplazo, $id_licit);
                 //Fin construccion codigo_proceso
+                
                 $estado_proceso  = $this->textValidation($node->filter(".lic-block-body .col-md-12 a"));
                 $objeto  = $this->textValidation($node->filter(".lic-block-body .col-md-12 p.text-weight-light"));
                 $cuantia  = $this->textValidation($node->filter("div:nth-child(3) > div.monto-dis.col-md-4 span:last-child"));
                 
-                //Formato fecha_publicacion
-                
+                //Formato fecha_publicacion               
                 $fecha_publicacion  = $this->textValidation($node->filter("div.lic-block-body > div:nth-child(3) > div:nth-child(2) > span"));
                 $date = str_replace('/', '-', $fecha_publicacion);
                 $fecha_publicacion = date('Y-m-d', strtotime($date));
                 //Fin
+
                 //Formato fecha_cierre       
                 $fecha_cierre  = $this->textValidation($node->filter("div > div.lic-block-body > div:nth-child(3) > div:nth-child(3) > span.highlight-text.text-weight-light"));
                 $date = str_replace('/', '-', $fecha_cierre);
                 $fecha_cierre = date('Y-m-d', strtotime($date));
                 //Fin
                 
-
                 $entidad_contratante  = $this->textValidation($node->filter("div > div.lic-bloq-footer > div > div:nth-child(1) > p"));
                 $cant_compras_efectuadas  = $this->textValidation($node->filter("div > div.lic-bloq-footer > div > div:nth-child(2) > span"));
                 $cant_rec_no_oportuno  = $this->textValidation($node->filter("div > div.lic-bloq-footer > div > div:nth-child(3) > span"));
                 $pie_licitacion  = $this->textValidation($node->filter("div > div.col-md-12.text-center.margin-top-md > em > small"));
+
                 //construccion url detalle
                 $dato_buscado = array("$.Busqueda.verFicha('", "')", 'http');
                 $dato_remplazo = array('', '', 'https');
-
                 $link  = $this->textValidation($node, 'div.lic-block-body > div:nth-child(1) > a', 'onclick');
                 $link = str_replace($dato_buscado, $dato_remplazo, $link);
-
                 //dd($codigo_proceso);
                 //Fin construccion url detalle
-
-                /* array_push($dataEncabezado, [
-                        'codigo_proceso' => $codigo_proceso,
-                        'estado_proceso' => $estado_proceso,
-                        'titulo' => $titulo,
-                        'objeto' => $objeto,
-                        'cuantia' => $cuantia,
-                        'fecha_publicacion' => $fecha_publicacion,
-                        'fecha_cierre' => $fecha_cierre,
-                        'entidad' => $entidad,
-                        'cant_compras_efectuadas' => $cant_compras_efectuadas,
-                        'cant_rec_no_oportuno' => $cant_rec_no_oportuno,
-                        'pie_licitacion' => $pie_licitacion,
-                        'link' => $link,
-                    ]); */
-
-
-
 
                 $model = new Contrato;
                 $model->entidad_contratante = $entidad_contratante;
                 $model->codigo_proceso = $codigo_proceso;
                 $model->objeto = $objeto;
-
                 $model->modalidad = "";
                 $model->ubicacion = "";
                 $model->link = $link;
@@ -165,51 +144,6 @@ class scrapping extends Command
                 }
                 
             });
-            /*
-            foreach ($dataEncabezado as $model) {
-                Encabezado::guardar('encabezado', $model);
-            }
-            */
-            //Fin extraccion de informacion de encabezados.
-
-            //2. Inicio extraccion de informacion de detalle.  
-
-            //3. Inicio extraccion de enlaces
-            /*
-            $dataEnlaces = array();
-            foreach ($dataDetallePrincipal as $camposDetalle) {
-                //Filtrar informacion desde #DWNL_grdId 
-                $crawlerEnlaces = $client->request('GET', $camposDetalle['adjuntos']);
-                $crawlerEnlaces->filter("#DWNL_grdId tr:not(:first-child)")->each(function ($node) use (&$dataEnlaces, &$camposDetalle) {
-                    //Filtrar datos
-                    $Id_licitacion = $camposDetalle['Id_licitacion'];
-                    $anexo = $node->filter("td:nth-child(2) span")->text();
-                    $tipo = $node->filter("td:nth-child(3) span")->text();
-                    $descripcion = $node->filter("td:nth-child(4) span")->text();
-                    $peso = $node->filter("td:nth-child(5) span")->text();
-                    //Formato fecha_adjunto
-                    $fecha_adjunto = $node->filter("td:nth-child(6) span")->text();
-                    $date = str_replace('/', '-', $fecha_adjunto);
-                    $fecha_adjunto = date('Y-m-d', strtotime($date));
-                    //Fin
-                    $acciones = $node->filter("td:nth-child(7) input")->attr('title');
-
-                    array_push($dataEnlaces, [
-                        'Id_licitacion' => $Id_licitacion,
-                        'anexo' => $anexo,
-                        'tipo' => $tipo,
-                        'descripcion' => $descripcion,
-                        'peso' => $peso,
-                        'fecha_adjunto' => $fecha_adjunto,
-                        'acciones' => $acciones,
-                    ]);
-                });
-                foreach ($dataEnlaces as $camposEnlaces) {
-                    Enlaces::guardar('enlaces', $camposEnlaces);
-                }
-                //Fin extraccion de informacion de enlaces.
-            }
-            */
             $pagina++;
         }
         echo "Fin proceso...\n";
