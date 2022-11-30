@@ -21,12 +21,13 @@ class CreateContratosTable extends Migration
             $table->text('modalidad')->comment('Modalidad del proceso');
             $table->text('ubicacion')->comment('Ubicacion concatenando departamento:municipio');
             $table->text('link')->comment('Link de la fuente');
-            $table->text('random');
+            $table->text('random')->nullable();
             $table->string('estado_agrupado')->comment('Estado agrupado de Licitaciones');
             $table->integer('unspsc');
             $table->string('unspsc_adicionales')->comment('Unspsc adicionales separados por coma');
             $table->integer('numero_documentos');
             $table->integer('valor')->nullable();
+            $table->string('valor_texto')->nullable();
             $table->date('fecha_actualizacion_estado')->comment('Esta fecha solo debe actualizarse cuando cambie el estado_agrupado');
             $table->date('fecha_last_update_seguimiento')->comment('Fecha utilizada para manejar el seguimiento, con esto sabemos la ultima vez que se miro el contrato desde seguimiento');
             $table->date('fecha_publicacion');

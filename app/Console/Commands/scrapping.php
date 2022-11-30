@@ -90,8 +90,13 @@ class scrapping extends Command
                 
                 $estado_proceso  = $this->textValidation($node->filter(".lic-block-body .col-md-12 a"));
                 $objeto  = $this->textValidation($node->filter(".lic-block-body .col-md-12 p.text-weight-light"));
-                $cuantia  = $this->textValidation($node->filter("div:nth-child(3) > div.monto-dis.col-md-4 span:last-child"));
-                
+                $valor_texto  = $this->textValidation($node->filter("div:nth-child(3) > div.monto-dis.col-md-4 span:last-child"));
+                $valor = null;
+                if(str_replace('.','',$valor_texto)){
+                    $valor = (int) str_replace('.','',$valor_texto);
+                }
+
+
                 //Formato fecha_publicacion               
                 $fecha_publicacion  = $this->textValidation($node->filter("div.lic-block-body > div:nth-child(3) > div:nth-child(2) > span"));
                 $date = str_replace('/', '-', $fecha_publicacion);
@@ -117,6 +122,7 @@ class scrapping extends Command
                 //dd($codigo_proceso);
                 //Fin construccion url detalle
 
+                
                 $model = new Contrato;
                 $model->entidad_contratante = $entidad_contratante;
                 $model->codigo_proceso = $codigo_proceso;
@@ -124,7 +130,8 @@ class scrapping extends Command
                 $model->modalidad = "";
                 $model->ubicacion = "";
                 $model->link = $link;
-                $model->random = $cuantia;
+                $model->valor = $valor;
+                $model->valor_texto = $valor_texto;
                 $model->estado_agrupado = "";
                 $model->unspsc = 0;
                 $model->unspsc_adicionales = "";

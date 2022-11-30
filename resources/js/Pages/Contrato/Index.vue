@@ -166,7 +166,7 @@
                             <td
                                 class="border border-gray-200 text-left py-3 px-4"
                             >
-                                {{ contrato.random }}
+                                {{ (contrato.valor>0) ? contrato.valor.toLocaleString('co-CO') : contrato.valor_texto }}
                             </td>
                             <td
                                 class="border border-gray-200 text-left py-3 px-4"
