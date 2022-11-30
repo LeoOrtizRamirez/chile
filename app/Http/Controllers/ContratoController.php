@@ -16,7 +16,9 @@ class ContratoController extends Controller
      */
     public function index()
     {
-        $contratos = Contrato::all();
+        //$contratos = Contrato::with('fuente')->get();
+
+        $contratos = Contrato::with('fuente')->get();
         return Inertia::render('Contrato/Index', compact('contratos'));
     }
 

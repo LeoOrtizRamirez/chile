@@ -5,11 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Contrato extends Model
+class Fuente extends Model
 {
     use HasFactory;
-
-    public function fuente(){
-        return $this->belongsTo('App\Models\Fuente', 'id_fuente_contract', 'id');
-    }
 }

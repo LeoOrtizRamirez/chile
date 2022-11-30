@@ -150,7 +150,9 @@
                             </td>
                             <td
                                 class="border border-gray-200 text-left py-3 px-4"
-                            ></td>
+                            >
+                                {{ contrato.fuente.alias_portal }}
+                            </td>
                             <td
                                 class="border border-gray-200 text-left py-3 px-4"
                             >

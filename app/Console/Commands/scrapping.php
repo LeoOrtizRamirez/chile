@@ -54,8 +54,8 @@ class scrapping extends Command
             'idEstado' => '-1',
             'codigoRegion' => '-1',
             'idTipoLicitacion' => '-1',
-            'fechaInicio' => '2022-11-29',
-            'fechaFin' => '2022-11-29',
+            'fechaInicio' => $fecha_inicio,
+            'fechaFin' => $fecha_fin,
             'pagina' => 1,
         ]);
         $num_paginas = $crawler->filter(".margin-bottom-xs .n-result")->text();
@@ -70,8 +70,8 @@ class scrapping extends Command
                 'idEstado' => '-1',
                 'codigoRegion' => '-1',
                 'idTipoLicitacion' => '-1',
-                'fechaInicio' => '2022-11-29',
-                'fechaFin' => '2022-11-29',
+                'fechaInicio' => $fecha_inicio,
+                'fechaFin' => $fecha_fin,
                 'pagina' => $pagina,
             ]);
             //Fin paginador 
@@ -134,6 +134,7 @@ class scrapping extends Command
                 $model->fecha_publicacion = $fecha_publicacion;
                 $model->fecha_vencimiento = $fecha_cierre;
                 $model->estado_proceso = $estado_proceso;
+                $model->id_fuente_contract = 1; //FUENTE MP
 
                 if($this->buscarContrato($model)){
                     echo "El contrato ya existe...\n";

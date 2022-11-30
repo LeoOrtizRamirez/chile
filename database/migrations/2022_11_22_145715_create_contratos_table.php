@@ -39,6 +39,12 @@ class CreateContratosTable extends Migration
                 ->on('users')
                 ->onDelete('set null');
 
+            $table->unsignedBigInteger('id_fuente_contract')->nullable();
+            $table->foreign('id_fuente_contract')
+                ->references('id')
+                ->on('fuentes')
+                ->onDelete('set null');
+
             $table->timestamps();
         });
     }
