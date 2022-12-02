@@ -3,7 +3,14 @@
         <template #header>
             <Busqueda_Rapida></Busqueda_Rapida>
         </template>
+        <!--buscar por estado-->
+            <select>
+            <option value="">todos</option>
+            <option value="">Vistos Recientemente</option>
+            <option value="">No Leidos</option>
+            </select>
 
+        <!---->
         <nav aria-label="Page navigation example"> 
             <ul class="inline-flex items-center -space-x-px">
                 <li>
@@ -232,7 +239,9 @@
                             </td>
                             <td
                                 class="border border-gray-200 text-left py-3 px-4"
-                            ></td>
+                            >
+                            {{ contrato.contratista }}
+                            </td>
                             <td
                                 class="border border-gray-200 text-left py-3 px-4"
                             ></td>

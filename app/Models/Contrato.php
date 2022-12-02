@@ -12,4 +12,8 @@ class Contrato extends Model
     public function fuente(){
         return $this->belongsTo('App\Models\Fuente', 'id_fuente_contract', 'id');
     }
+
+    public function contratista(){
+        return $this->hasMany('App\models\ContratoContratista', 'id', 'id_contrato');
+    }
 }
