@@ -10,6 +10,7 @@ use Goutte\Client;
 use Symfony\Component\HttpClient\HttpClient;
 
 use App\Models\Contrato;
+use App\Models\ContratistaContrato;
 
 class scrapping extends Command
 {
@@ -122,6 +123,11 @@ class scrapping extends Command
                 //dd($codigo_proceso);
                 //Fin construccion url detalle
 
+                //Contratista
+                $contratista_nombre = $this->textValidation($node->filter(".lic-bloq-footer .col-md-4:nth-child(1)"));
+                
+                
+
                 
                 $model = new Contrato;
                 $model->entidad_contratante = $entidad_contratante;
@@ -149,6 +155,21 @@ class scrapping extends Command
                     $model->save();
                     echo "Guardando...\n";
                     $this->guardarDetalle($model);
+
+                    $contratista = new ContratistaContrato;
+                    $contratista->nombre = $contratista_nombre;
+                    $contratista->id_contrato = $model->id;
+                    $contratista->save();
+                    /*
+                    $contratista_contrato_id = $this->buscarContratistaContrato($contratista_nombre);
+                    if($contratista_contrato_id){
+                        $contratista = new ContratistaContrato;
+                        $contratista->nombre = $contratista_nombre;
+                        $contratista->id_contrato = $model->id;
+                        $contratista->save();
+                    }
+                    */
+                    
                 }
                 
             });
@@ -162,6 +183,15 @@ class scrapping extends Command
         $contrato =  Contrato::where('link', $model->link)->first();
         if($contrato){
             return true;
+        }else{
+            return false;
+        }
+    }
+
+    function buscarContratistaContrato($nombre){
+        $contrato =  ContratistaContrato::where('nombre', $nombre)->first();
+        if($contrato){
+            return $contrato->id;
         }else{
             return false;
         }

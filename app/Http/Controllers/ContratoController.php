@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contrato;
+use App\Models\ContratistaContrato;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
@@ -19,6 +20,14 @@ class ContratoController extends Controller
         //$contratos = Contrato::with('fuente')->get();
 
         $contratos = Contrato::with('fuente')->get();
+
+        foreach ($contratos as $key => $value) {
+            $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();
+            if($contratista){
+                $value->contratista =  $contratista->nombre;
+            }
+        }
+
         return Inertia::render('Contrato/Index', compact('contratos'));
     }
 
