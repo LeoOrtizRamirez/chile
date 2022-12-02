@@ -6,7 +6,7 @@
                 class="buscador_general"
                 id="busquedaInput"
                 type="text"
-                placeholder="Busqueda rapida"
+                placeholder="Búsqueda rápida"
                 v-model="searchText"
             />
             <span class="material-symbols-outlined posicion-color">

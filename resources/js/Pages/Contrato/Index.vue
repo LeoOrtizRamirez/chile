@@ -232,7 +232,8 @@
                                 class="border border-gray-200 text-left py-3 px-4"
                                 :title="contrato.objeto"
                             >
-                                {{ contrato.objeto.substr(0, 30) }}
+                                {{ contrato.objeto.substr(0, 30) }}...
+                                <a href="" style="color:blue; cursor:pointer; display:inline-block">Ver más</a>
                             </td>
                             <td
                                 class="border border-gray-200 text-left py-3 px-4"

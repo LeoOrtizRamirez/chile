@@ -2,7 +2,7 @@
     <div class="">
         <button class="buscador_avanzado mb-3">
             <span class="material-symbols-outlined"> list </span>
-            <span class="color-texto">Busqueda avanzada</span>
+            <span class="color-texto">Búsqueda avanzada</span>
         </button>
     </div>
 </template>
