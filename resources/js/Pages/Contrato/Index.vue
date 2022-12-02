@@ -1,7 +1,11 @@
 <template>
     <AppLayout title="Contratos">
         <template #header>
-            <Busqueda_Rapida></Busqueda_Rapida>
+            <ContenedorFiltros @onInput="onInput"></ContenedorFiltros>
+            <link
+                rel="stylesheet"
+                href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+            />
         </template>
         <div class="w-full mt-6">
             <div class="bg-white overflow-auto">
@@ -73,7 +77,10 @@
                         </tr>
                     </thead>
                     <tbody class="text-gray-700">
-                        <tr v-for="contrato in contratos" :key="contrato.id">
+                        <tr
+                            v-for="contrato in contratosFiltrados"
+                            :key="contrato.id"
+                        >
                             <td
                                 class="border border-gray-200 text-left py-3 px-4"
                             >
@@ -82,66 +89,60 @@
                                         <div class="-mx-3 flex flex-wrap">
                                             <div class="w-full px-3 sm:w-1/2">
                                                 <button class="mb-3">
-                                                    <img
-                                                        class="icons"
-                                                        src="img/svg/pdf.svg"
-                                                        alt=""
-                                                        width="30"
-                                                    />
+                                                    <span
+                                                        class="material-symbols-outlined"
+                                                    >
+                                                        picture_as_pdf
+                                                    </span>
                                                 </button>
                                             </div>
                                             <div class="w-full px-3 sm:w-1/2">
                                                 <button class="mb-3">
-                                                    <img
-                                                        class="icons"
-                                                        src="img/svg/enviar.svg"
-                                                        alt=""
-                                                        width="30"
-                                                    />
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="-mx-3 flex flex-wrap">
-                                            <div class="w-full px-3 sm:w-1/2">
-                                                <button class="mb-3">
-                                                    <img
-                                                        class="icons"
-                                                        src="img/svg/estrella-verde.svg"
-                                                        alt=""
-                                                        width="30"
-                                                    />
-                                                </button>
-                                            </div>
-                                            <div class="w-full px-3 sm:w-1/2">
-                                                <button class="mb-3">
-                                                    <img
-                                                        class="icons"
-                                                        src="img/svg/ojo-azul.svg"
-                                                        alt=""
-                                                        width="30"
-                                                    />
+                                                    <span
+                                                        class="material-symbols-outlined"
+                                                    >
+                                                        ios_share
+                                                    </span>
                                                 </button>
                                             </div>
                                         </div>
                                         <div class="-mx-3 flex flex-wrap">
                                             <div class="w-full px-3 sm:w-1/2">
                                                 <button class="mb-3">
-                                                    <img
-                                                        class="icons"
-                                                        src="img/svg/compartir.svg"
-                                                        alt=""
-                                                        width="30"
-                                                    />
+                                                    <span
+                                                        class="material-symbols-outlined"
+                                                    >
+                                                        star
+                                                    </span>
                                                 </button>
                                             </div>
                                             <div class="w-full px-3 sm:w-1/2">
                                                 <button class="mb-3">
-                                                    <img
-                                                        class="icons"
-                                                        src="img/svg/papelera.svg"
-                                                        alt=""
-                                                        width="30"
-                                                    />
+                                                    <span
+                                                        class="material-symbols-outlined"
+                                                    >
+                                                        visibility
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="-mx-3 flex flex-wrap">
+                                            <div class="w-full px-3 sm:w-1/2">
+                                                <button class="mb-3">
+                                                    <span
+                                                        class="material-symbols-outlined"
+                                                    >
+                                                        share
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="w-full px-3 sm:w-1/2">
+                                                <button class="mb-3">
+                                                    <span
+                                                        class="material-symbols-outlined"
+                                                    >
+                                                        folder_delete
+                                                    </span>
                                                 </button>
                                             </div>
                                         </div>
@@ -158,6 +159,7 @@
                             </td>
                             <td
                                 class="border border-gray-200 text-left py-3 px-4"
+                                :title="contrato.objeto"
                             >
                                 {{ contrato.objeto.substr(0, 30) }}
                             </td>
@@ -205,15 +207,52 @@
     </AppLayout>
 </template>
 
-<script setup>
-import AppLayout from "@/Layouts/AppLayout.vue";
-import Busqueda_Rapida from "@/components/Busqueda_Rapida.vue";
-</script>
-
 <script>
+import AppLayout from "@/Layouts/AppLayout.vue";
+import ContenedorFiltros from "@/components/ContenedorFiltros.vue";
+
 export default {
     props: {
         contratos: [],
+    },
+
+    data() {
+        return {
+            contratosFiltrados: this.contratos,
+        };
+    },
+
+    components: {
+        AppLayout,
+        ContenedorFiltros,
+    },
+
+    methods: {
+        onInput(value) {
+            // debugger;
+            this.busquedaRapida(value);
+            // console.log();
+        },
+
+        busquedaRapida(value) {
+            this.contratosFiltrados = this.contratos.filter(function (el) {
+                // console.log(el.objeto);
+                // console.log(el.objeto.indexOf(value) !== -1);
+                return (
+                    // el.entidad_contratante.indexOf(value) !== -1 ||
+                    // el.objeto.indexOf(value) !== -1 ||
+                    // el.ubicacion.indexOf(value) !== -1
+                    el.entidad_contratante
+                        .toUpperCase()
+                        .indexOf(value.toUpperCase()) !== -1 ||
+                    el.objeto.toUpperCase().indexOf(value.toUpperCase()) !==
+                        -1 ||
+                    el.ubicacion.toUpperCase().indexOf(value.toUpperCase()) !==
+                        -1
+                );
+            });
+            console.log(this.contratosFiltrados);
+        },
     },
 };
 </script>
@@ -221,5 +260,9 @@ export default {
 <style lang="scss" scoped>
 .bg-licitaciones {
     background-color: #00a1c9;
+}
+
+.material-symbols-outlined-star {
+    color: #00a1c9;
 }
 </style>

@@ -2,22 +2,37 @@
     <div class="seccion-filtros">
         <div class="filtros">
             <input
+                @input="onInput"
                 class="buscador_general"
                 id="busquedaInput"
                 type="text"
                 placeholder="Busqueda rapida"
+                v-model="searchText"
             />
-            <img
-                class="icons posicion"
-                src="img/svg/search.svg"
-                alt=""
-                srcset=""
-            />
+            <span class="material-symbols-outlined posicion-color">
+                search
+            </span>
         </div>
     </div>
 </template>
+
 <script>
-export default {};
+export default {
+    name: "BusquedaRapida",
+    data() {
+        return {
+            searchtext: "",
+        };
+    },
+
+    methods: {
+        onInput(event) {
+            // debugger
+            console.log(event);
+            this.$emit("onInput", event.target.value);
+        },
+    },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -38,7 +53,7 @@ export default {};
     -webkit-border-radius: 10px;
     border-radius: 10px;
     border: 2px solid #c9c9c9;
-    padding: 0px 5px 0px 25px;
+    padding: 0px 5px 0px 40px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
 }
@@ -49,9 +64,10 @@ export default {};
     padding: 30px;
 }
 
-.posicion {
+.posicion-color {
     position: absolute;
     margin: 0px 0px 0px 15px;
     width: 13px;
+    color: #c9c9c9;
 }
 </style>
