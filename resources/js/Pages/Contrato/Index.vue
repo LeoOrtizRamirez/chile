@@ -2,79 +2,12 @@
     <AppLayout title="Contratos">
         <template #header>
             <ContenedorFiltros @onInput="onInput"></ContenedorFiltros>
+            <!-- <Paginador></Paginador> -->
             <link
                 rel="stylesheet"
                 href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
             />
         </template>
-        <!--buscar por estado-->
-        <select>
-            <option value="">todos</option>
-            <option value="">Vistos Recientemente</option>
-            <option value="">No Leidos</option>
-        </select>
-
-        <!---->
-        <nav aria-label="Page navigation example">
-            <ul class="inline-flex items-center -space-x-px">
-                <li>
-                    <a
-                        href="#"
-                        v-on:click="getPreviousPage()"
-                        class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                        <span class="sr-only">Previous</span>
-                        <svg
-                            aria-hidden="true"
-                            class="w-5 h-5"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                clip-rule="evenodd"
-                            ></path>
-                        </svg>
-                    </a>
-                </li>
-
-                <li>
-                    <a
-                        href="#"
-                        v-for="paginas in totalPaginas()"
-                        v-on:click="getDataPagina(paginas)"
-                        v-bind:class="isActive(paginas)"
-                        class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                        >{{ paginas }}</a
-                    >
-                </li>
-
-                <li>
-                    <a
-                        href="#"
-                        v-on:click="getNextPage()"
-                        class="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    >
-                        <span class="sr-only">Next</span>
-                        <svg
-                            aria-hidden="true"
-                            class="w-5 h-5"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                clip-rule="evenodd"
-                            ></path>
-                        </svg>
-                    </a>
-                </li>
-            </ul>
-        </nav>
 
         <div class="w-full mt-6">
             <div class="bg-white overflow-auto">
@@ -288,6 +221,7 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import ContenedorFiltros from "@/components/ContenedorFiltros.vue";
+/* import Paginador from "@/components/Paginador.vue"; */
 
 export default {
     props: {
@@ -297,54 +231,17 @@ export default {
     components: {
         AppLayout,
         ContenedorFiltros,
+       /*  Paginador, */
     },
 
     data() {
         return {
-            elementosPorPagina: 10,
-            // contratosFiltrados: [],
             contratosFiltrados: this.contratos,
-            paginaActual: 1,
         };
     },
 
-    mounted() {
-        this.getDataPagina(1);
-    },
-
+  
     methods: {
-        totalPaginas() {
-            return Math.ceil(this.contratos.length / this.elementosPorPagina);
-        },
-
-        getDataPagina(noPagina) {
-            this.paginaActual = noPagina;
-            this.contratosFiltrados = [];
-            let ini =
-                noPagina * this.elementosPorPagina - this.elementosPorPagina;
-            let fin = noPagina * this.elementosPorPagina;
-            this.contratosFiltrados = this.contratos.slice(ini, fin);
-        },
-
-        getPreviousPage() {
-            if (this.paginaActual > 1) {
-                this.paginaActual--;
-            }
-            this.getDataPagina(this.paginaActual);
-        },
-
-        getNextPage() {
-            if (this.paginaActual < this.totalPaginas()) {
-                this.paginaActual++;
-            }
-            this.getDataPagina(this.paginaActual);
-        },
-        isActive(noPagina) {
-            return noPagina == this.paginaActual
-                ? "dark:bg-gray-700 dark:text-white"
-                : "";
-        },
-
         onInput(value) {
             // debugger;
             this.busquedaRapida(value);
@@ -368,6 +265,7 @@ export default {
     },
 };
 </script>
+
 
 <style lang="scss" scoped>
 .bg-licitaciones {

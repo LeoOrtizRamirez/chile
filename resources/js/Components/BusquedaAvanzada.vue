@@ -17,7 +17,7 @@ export default {};
     flex-direction: row;
     align-items: center;
     margin-top: 15px;
-    padding: 0px;
+    padding: 0px 15px;
 }
 
 .material-symbols-outlined {
