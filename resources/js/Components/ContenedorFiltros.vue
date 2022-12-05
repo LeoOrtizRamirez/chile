@@ -2,16 +2,19 @@
     <div class="contenedor-filtros">
         <BusquedaRapida @onInput="onInput"></BusquedaRapida>
         <BusquedaAvanzada></BusquedaAvanzada>
+        <BusquedaEstado></BusquedaEstado>
     </div>
 </template>
 
 <script>
 import BusquedaRapida from "@/components/BusquedaRapida.vue";
 import BusquedaAvanzada from "@/components/BusquedaAvanzada.vue";
+import BusquedaEstado from "@/components/BusquedaEstado.vue";
 export default {
     components: {
         BusquedaRapida,
         BusquedaAvanzada,
+        BusquedaEstado,
     },
     methods: {
         onInput(value) {

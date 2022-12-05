@@ -7,14 +7,6 @@
                 href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
             />
         </template>
-        <!--buscar por estado-->
-        <select>
-            <option value="">todos</option>
-            <option value="">Vistos Recientemente</option>
-            <option value="">No Leidos</option>
-        </select>
-
-        <!---->
         <nav aria-label="Page navigation example">
             <ul class="inline-flex items-center -space-x-px">
                 <li>
