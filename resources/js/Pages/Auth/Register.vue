@@ -24,16 +24,15 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Register" />
+    <Head title="Registrarme" />
 
-    <AuthenticationCard>
+    <AuthenticationCard class="container">
         <template #logo>
             <AuthenticationCardLogo />
         </template>
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="name" value="Name" />
                 <TextInput
                     id="name"
                     v-model="form.name"
@@ -42,24 +41,24 @@ const submit = () => {
                     required
                     autofocus
                     autocomplete="name"
+                    placeholder="Ingresa tu nombre"
                 />
                 <InputError class="mt-2" :message="form.errors.name" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="email" value="Email" />
                 <TextInput
                     id="email"
                     v-model="form.email"
                     type="email"
                     class="mt-1 block w-full"
                     required
+                    placeholder="Ingresa tu correo electrónico"
                 />
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
                 <TextInput
                     id="password"
                     v-model="form.password"
@@ -67,15 +66,12 @@ const submit = () => {
                     class="mt-1 block w-full"
                     required
                     autocomplete="new-password"
+                    placeholder="Ingresa tu contraseña"
                 />
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
             <div class="mt-4">
-                <InputLabel
-                    for="password_confirmation"
-                    value="Confirm Password"
-                />
                 <TextInput
                     id="password_confirmation"
                     v-model="form.password_confirmation"
@@ -83,11 +79,9 @@ const submit = () => {
                     class="mt-1 block w-full"
                     required
                     autocomplete="new-password"
+                    placeholder="Confirma tu contraseña"
                 />
-                <InputError
-                    class="mt-2"
-                    :message="form.errors.password_confirmation"
-                />
+                <InputError class="mt-2" :message="form.errors.password_confirmation" />
             </div>
 
             <div
@@ -125,21 +119,24 @@ const submit = () => {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <Link
-                    :href="route('login')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900"
-                >
-                    Already registered?
+                <Link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900">
+                    ¿Ya estas registrado?
                 </Link>
 
-                <PrimaryButton
-                    class="ml-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Register
+                <PrimaryButton id="btn-ingresar" class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    Registrarme
                 </PrimaryButton>
             </div>
         </form>
     </AuthenticationCard>
 </template>
+
+<style lang="scss" scoped>
+.container {
+    background-color: #44a1c3;
+    max-width: 100%;
+}
+#btn-ingresar{
+    background-color: #57C700;
+}
+</style>
