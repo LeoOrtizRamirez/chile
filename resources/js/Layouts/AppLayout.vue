@@ -38,10 +38,11 @@ const logout = () => {
 
         <Banner />
 
-        <div class="min-h-screen bg-gray-100">
+        <!-- <div class="min-h-screen bg-gray-100"> -->
+        <div class="min-h-screen">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
                         <div class="flex">
                             <!-- Logo -->
@@ -245,6 +246,11 @@ const logout = () => {
                                                 type="button"
                                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition"
                                             >
+                                                <span
+                                                    class="icons material-symbols-outlined"
+                                                >
+                                                    account_circle
+                                                </span>
                                                 {{ $page.props.user.name }}
 
                                                 <svg
@@ -507,5 +513,14 @@ const logout = () => {
 <style lang="scss" scoped>
 .logo {
     width: 220px;
+}
+
+.icons {
+    margin-right: 7px;
+}
+
+.aling {
+    display: flex;
+    justify-content: flex-start;
 }
 </style>

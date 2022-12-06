@@ -1,14 +1,13 @@
 <template>
     <div class="">
-
-          <!-- inicio paginador -->
-          <nav aria-label="Page navigation example">
+        <!-- inicio paginador -->
+        <nav aria-label="Page navigation example">
             <ul class="inline-flex items-center -space-x-px">
                 <li>
                     <a
                         href="#"
                         v-on:click="getPreviousPage()"
-                        class="block px-3 py-2 ml-0 leading-tight  bg-white border border-gray-300 rounded-l-lg"
+                        class="block px-3 py-2 ml-0 leading-tight bg-white border border-gray-300 rounded-l-lg"
                     >
                         <span class="sr-only">Previous</span>
                         <svg
@@ -42,7 +41,7 @@
                     <a
                         href="#"
                         v-on:click="getNextPage()"
-                        class="block px-3 py-2 leading-tight  bg-white border border-gray-300 rounded-r-lg"
+                        class="block px-3 py-2 leading-tight bg-white border border-gray-300 rounded-r-lg"
                     >
                         <span class="sr-only">Next</span>
                         <svg
@@ -62,16 +61,12 @@
                 </li>
             </ul>
         </nav>
-   <!-- Fin paginador -->
-
-       </div>   
+        <!-- Fin paginador -->
+    </div>
 </template>
 
-
 <script>
-
 export default {
-
     props: {
         contratos: [],
     },
