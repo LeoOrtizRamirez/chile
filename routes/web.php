@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\ContratoController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,3 +49,7 @@ Route::middleware([
 
 Route::resource('contratos', ContratoController::class)
 ->middleware(['auth:sanctum', 'verified']);
+
+Route::resource('usuarios', UserController::class)
+->middleware(['auth:sanctum', 'verified']);
+
