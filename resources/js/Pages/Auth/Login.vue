@@ -13,10 +13,13 @@ defineProps({
     status: String,
 });
 
+const meta = document.querySelector("meta[name='csrf-token']").getAttribute('content')
 const form = useForm({
     email: "",
     password: "",
     remember: false,
+    test: "asd",
+    "_token": meta,
 });
 
 const submit = () => {
@@ -43,6 +46,7 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
+                <input type="hidden" name="_token"  v-model="form._token">
                 <TextInput
                     id="email"
                     v-model="form.email"
