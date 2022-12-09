@@ -8,12 +8,14 @@ import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 
+const token = document.querySelector("meta[name='csrf-token']").getAttribute('content')
 const form = useForm({
     name: "",
     email: "",
     password: "",
     password_confirmation: "",
     terms: false,
+    "_token": token,
 });
 
 const submit = () => {
