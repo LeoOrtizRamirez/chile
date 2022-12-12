@@ -4,7 +4,7 @@ import { Link } from "@inertiajs/inertia-vue3";
 
 <template>
     <Link :href="'/'">
-        <img class="logo" src="img/png/licitaciones-info.png">
+        <img class="logo" src="/public/img/png/licitaciones-info.png">
     </Link>
 </template>
 

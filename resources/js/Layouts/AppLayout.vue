@@ -51,7 +51,7 @@ const logout = () => {
                                 <!-- <ApplicationMark class="block h-9 w-auto" /> -->
                                 <img
                                     class="logo"
-                                    src="img/png/licichile.png"
+                                    src="/public/img/png/licichile.png"
                                     alt=""
                                     srcset=""
                                 />
