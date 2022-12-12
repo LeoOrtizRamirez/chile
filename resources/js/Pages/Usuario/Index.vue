@@ -15,18 +15,24 @@
                 <div class="usuarios">
                     <div class="contenedor-botones">
                         <div>
-                            <button class="autorenew">
+                            <a
+                                class="autorenew"
+                                href="javascript:location.reload()"
+                            >
                                 <span class="material-symbols-outlined">
                                     autorenew
                                 </span>
-                            </button>
-                            <button class="add_circle">
+                            </a>
+                            <a
+                                :href="route('usuarios.create')"
+                                class="add_circle"
+                            >
                                 <span
                                     class="material-symbols-outlined material-symbols-outlined-color"
                                 >
                                     add_circle
                                 </span>
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div>Usuarios</div>
@@ -179,13 +185,8 @@
                             <td
                                 class="border border-gray-200 text-left py-3 px-4"
                             >
-                                <!-- <div>
-                                    <a :href="route('usuarios.create')">
-                                        Crear
-                                    </a>
-                                </div> -->
                                 <div class="div-icons">
-                                    <a @click="destroy(usuario)">
+                                    <a @click="destroy(usuario)" href="#">
                                         <span
                                             class="delete material-symbols-outlined"
                                         >
@@ -193,26 +194,25 @@
                                         </span>
                                     </a>
                                 </div>
-                                <div>
-                                    <div class="div-icons">
-                                        <a
-                                            :href="
-                                                route('usuarios.edit', usuario)
-                                            "
-                                            ><span
-                                                class="edit material-symbols-outlined"
-                                            >
-                                                edit
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
+
                                 <div class="div-icons">
-                                    <span
-                                        class="mail material-symbols-outlined"
-                                    >
-                                        mail
-                                    </span>
+                                    <a :href="route('usuarios.edit', usuario)"
+                                        ><span
+                                            class="edit material-symbols-outlined"
+                                        >
+                                            edit
+                                        </span>
+                                    </a>
+                                </div>
+
+                                <div class="div-icons">
+                                    <a href="#">
+                                        <span
+                                            class="mail material-symbols-outlined"
+                                        >
+                                            mail
+                                        </span>
+                                    </a>
                                 </div>
                             </td>
                             <td
@@ -362,6 +362,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/components/Pagination.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import ContenedorOpciones from "../../Components/ContenedorOpciones.vue";
+import Button from "../../../../chile/resources/js/Jetstream/Button.vue";
 
 export default {
     components: {
@@ -369,6 +370,7 @@ export default {
         Pagination,
         Link,
         ContenedorOpciones,
+        Button,
     },
 
     props: {
