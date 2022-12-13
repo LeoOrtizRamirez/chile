@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\ClasificacionContrato;
+use App\Models\SubCategoria;
 use Illuminate\Console\Command;
 
 //Scrapping
@@ -124,9 +126,7 @@ class scrapping extends Command
                 //Fin construccion url detalle
 
                 //Contratista
-                $contratista_nombre = $this->textValidation($node->filter(".lic-bloq-footer .col-md-4:nth-child(1)"));
-                
-                
+                $contratista_nombre = $this->textValidation($node->filter(".lic-bloq-footer .col-md-4:nth-child(1)"));     
 
                 
                 $model = new Contrato;
@@ -153,13 +153,10 @@ class scrapping extends Command
                     echo "El contrato ya existe...\n";
                 }else{
                     $model->save();
-                    echo "Guardando...\n";
-                    $this->guardarDetalle($model);
+                    echo "Guardando Concurso\n";
+                    $this->guardarDetalle($model, $contratista_nombre);
+                    //Fin - Actividad economica
 
-                    $contratista = new ContratistaContrato;
-                    $contratista->nombre = $contratista_nombre;
-                    $contratista->id_contrato = $model->id;
-                    $contratista->save();
                     /*
                     $contratista_contrato_id = $this->buscarContratistaContrato($contratista_nombre);
                     if($contratista_contrato_id){
@@ -197,14 +194,37 @@ class scrapping extends Command
         }
     }
 
-    function guardarDetalle($model)
+    function guardarDetalle($model, $contratista_nombre)
     {
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
         $model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
         $model->ubicacion = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
         $model->estado_proceso = $this->textValidation($crawlerDetalle->filter('#lblFicha1Estado'));
-        
         $model->save();
+        echo "Guardando Detalle del Concurso\n";
+
+        $contratista = new ContratistaContrato;
+        $contratista->nombre = $contratista_nombre;
+        $contratista->id_contrato = $model->id;
+        $contratista->save();
+        echo "Guardando ContratistaContrato\n";
+
+        //Inicio - Actividad economica
+        //Buscar o crear SubCategoria
+
+        $actividad_economica = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblProducto'));
+        $subcategoria = new SubCategoria();
+        $subcategoria->nombre = $actividad_economica;
+        $subcategoria->tipo_categoria = 1;
+        $subcategoria->save();
+        echo "Guardando SubCategoria\n";
+
+        $clasificacion_contrato = new ClasificacionContrato();
+        $clasificacion_contrato->id_contrato = $model->id;
+        $clasificacion_contrato->id_sub_categoria = $subcategoria->id;
+        $clasificacion_contrato->save();
+        echo "Guardando ClasificacionContrato\n\n";
+        
     }
 
     public function getClient()

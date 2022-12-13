@@ -16,8 +16,8 @@ class CreateSubCategoriasTable extends Migration
         Schema::create('sub_categorias', function (Blueprint $table) {
             $table->id();
             $table->text('nombre');
-            $table->text('descripcion');
-            $table->text('observaciones');
+            $table->text('descripcion')->nullable();
+            $table->text('observaciones')->nullable();
 
             $table->unsignedBigInteger('id_padre_sub_categoria')->nullable();
             $table->foreign('id_padre_sub_categoria')
@@ -25,13 +25,13 @@ class CreateSubCategoriasTable extends Migration
                 ->on('sub_categorias')
                 ->onDelete('set null');
 
-            $table->string('adt_usuario_modificacion');
-            $table->date('adt_fecha_modificacion');
-            $table->string('icon');
-            $table->integer('orden');
-            $table->boolean('is_oculto')->deafult(false);
+            $table->string('adt_usuario_modificacion')->nullable();
+            $table->date('adt_fecha_modificacion')->nullable();
+            $table->string('icon')->nullable();
+            $table->integer('orden')->nullable();
+            $table->boolean('is_oculto')->nullable();
             
-            $table->integer('id_region')->deafult(null);
+            $table->integer('id_region')->nullable();
 
             $table->integer('tipo_categoria')->comment('1 = Actividad Economica, 2 = Modalidad , 3 = Ubicación');
 
