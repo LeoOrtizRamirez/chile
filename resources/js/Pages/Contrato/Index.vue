@@ -309,7 +309,9 @@
                                     </td>
                                     <td
                                         class="border border-gray-200 text-left py-3 px-4"
-                                    ></td>
+                                    >
+                                    {{ contrato.actividad_economica }}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
