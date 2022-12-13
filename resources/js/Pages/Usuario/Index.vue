@@ -381,7 +381,6 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/components/Pagination.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import ContenedorOpciones from "../../Components/ContenedorOpciones.vue";
-import Button from "../../../../chile/resources/js/Jetstream/Button.vue";
 
 export default {
     components: {
@@ -389,7 +388,6 @@ export default {
         Pagination,
         Link,
         ContenedorOpciones,
-        Button,
     },
 
     props: {

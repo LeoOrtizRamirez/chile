@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClasificacionContrato;
 use App\Models\Contrato;
 use App\Models\ContratistaContrato;
+use App\Models\SubCategoria;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
@@ -15,12 +17,17 @@ class ContratoController extends Controller
     {
         //$contratos = Contrato::with('fuente')->get();
 
-        $contratos = Contrato::with('fuente')->get();
-
+        $contratos = Contrato::with('fuente', 'clasificaciones', 'contratistas')->get();
         foreach ($contratos as $key => $value) {
             $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();
             if($contratista){
                 $value->contratista =  $contratista->nombre;
+            }
+
+            $actividad_economica = ClasificacionContrato::where('id_contrato', $value->id)->first();
+            if($actividad_economica){
+                $sub_categoria = SubCategoria::find($actividad_economica->id_sub_categoria); 
+                $value->actividad_economica =  $sub_categoria->nombre;
             }
         }
 
