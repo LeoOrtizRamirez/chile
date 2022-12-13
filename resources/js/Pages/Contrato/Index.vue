@@ -414,7 +414,7 @@ export default {
 }
 
 .bg-paginador {
-    background-color: #e6e6e6;
+    background-color: #00a1c9;
 }
 
 .contenedor {
@@ -446,12 +446,14 @@ export default {
     padding: 1px;
     margin: 1px;
     justify-content: space-between;
+    // background-color: #e6e6e6;
 }
 
 .contenedor-paginador {
     // border: solid 2px rgb(0, 13, 255);
     padding: 1px;
-    margin: 1px;
+    margin-top: 25px;
+    margin-right: 15px;
 }
 
 .contenedor-tabla {
@@ -469,6 +471,6 @@ export default {
 }
 
 .titles {
-    color: black;
+    color: white;
 }
 </style>

@@ -52,14 +52,14 @@ export default {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    border: 2px solid #c9c9c9;
+    border: 2px solid #e6e6e6;
     padding: 0px 5px 0px 40px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
 }
 
 .buscador_general::placeholder {
-    color: #c9c9c9;
+    color: #e6e6e6;
     font-size: 13px;
     padding: 30px;
 }
@@ -68,6 +68,6 @@ export default {
     position: absolute;
     margin: 0px 0px 0px 15px;
     width: 13px;
-    color: #c9c9c9;
+    color: #e6e6e6;
 }
 </style>

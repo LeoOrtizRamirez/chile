@@ -135,7 +135,7 @@ const submit = () => {
 
 <style lang="scss" scoped>
 .container {
-    background-color: #44a1c3;
+    background-color: #00a1c9;
     max-width: 100%;
 }
 #btn-ingresar{
